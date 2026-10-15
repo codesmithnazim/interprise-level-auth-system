@@ -1,0 +1,30 @@
+import express from "express";
+import rateLimit from "express-rate-limit";
+// import rateLimit from ""
+const app = express();
+
+app.use(
+  rateLimit({
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+    windowMs: 1 * 60 * 1000, 
+    limit: 2,
+  }),
+);
+
+app.get("/api/users/me", async (req, res) => {
+  try {
+    console.log(req?.ip)
+    res
+      .status(200)
+      .json({ user: "We have succeded, and the user details ...." });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+
+app.listen(3001, ()=>{
+    console.log('listening on the port 3001 of local host')
+})

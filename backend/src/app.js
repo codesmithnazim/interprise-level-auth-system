@@ -42,7 +42,7 @@ app.use(express.json({ limit: "10kb" })); // small body cap = cheap DoS protecti
 app.use(cookieParser());
 app.use("/api", globalLimiter);
 
-app.get("/health", (_req, res) => res.json({ ok: true })); //Just for checking whether the backend is working fine or destroyed(I forget the suitable word here)
+app.get("/health", (_req, res) => res.json({ ok: true })); //Just for checking whether the backend is working fine or broken.
 app.use("/api/auth", authRoutes);
 
 app.use(notFound);
