@@ -8,3 +8,8 @@ export class AppError extends Error {
     this.details = details;
   }
 }
+
+
+// The error object we get from there will be an error Object and will be behaved more diferent then the objects we get from the ordinary classes.
+// One more thing is that always the object we get through "new" keyword starts from the base class and the child class(s) just add or modify the properties or Methods
+// of the object made by the base(parent) class.
