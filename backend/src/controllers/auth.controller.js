@@ -21,9 +21,10 @@ const MINUTE = 60 * 1000;
 export async function register(req, res) {
   const { name, email, password } = req.body;
 
-  if (await isPwnedPassword(password)) {
-    throw new AppError(400, "WEAK_PASSWORD", "This password appears in known data breaches. Choose another.");
-  }
+  // if (await isPwnedPassword(password)) {
+  //   throw new AppError(400, "WEAK_PASSWORD", "This password appears in known data breaches. Choose another.");
+  // } 
+  // Here we do not want to check it 
 
   // Hash FIRST in every branch so response time does not reveal whether the email exists.
   const passwordHash = await hashPassword(password);
@@ -270,3 +271,4 @@ export async function changePassword(req, res) {
   background(sendSecurityAlert(user.email, "Your password was changed", "Your password was just changed."));
   res.json({ message: "Password changed. Other devices were logged out." });
 }
+

@@ -23,3 +23,15 @@ export const loginEmailLimiter = rateLimit({
 export const otpEmailLimiter = rateLimit({
   ...base, windowMs: 60 * MIN, limit: 5, keyGenerator: byEmail,
 });
+
+
+
+// If In case in future you want to use the redis stores for managing the counters use the below code:
+//   new RedisStore({ sendCommand: (...args) => client.sendCommand(args), prefix: `rl:${prefix}:` });
+
+// export const globalLimiter = rateLimit({ ...base, windowMs: 15 * MIN, limit: 300, store: makeStore("global") });
+// export const authIpLimiter = rateLimit({ ...base, windowMs: 15 * MIN, limit: 30, store: makeStore("authip") });
+// export const loginEmailLimiter = rateLimit({
+//   ...base, windowMs: 15 * MIN, limit: 10, keyGenerator: byEmail,
+//   skipSuccessfulRequests: true, store: makeStore("loginemail"),
+// });
