@@ -1,3 +1,4 @@
+import { promise } from "zod";
 import { AuditLog } from "../models/AuditLog.js";
 import { logger } from "./logger.js";
 
@@ -14,5 +15,13 @@ export function audit(event, req, { userId, meta } = {}) {
 }
 
 // Run a promise in the background; log (never throw) on failure.
-export const background = (promise) =>
-  promise.catch((err) => logger.error({ err }, "background task failed"));
+// export const background = (promise) =>
+//   promise.catch((err) => logger.error({ err }, "background task failed"));
+
+export const background = async (promise) => {
+  try {
+    await promise;
+  } catch (error) {
+    logger.error({ error }, "background task failed");
+  }
+};

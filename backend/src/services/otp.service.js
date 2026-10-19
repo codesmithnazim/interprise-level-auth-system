@@ -10,7 +10,7 @@ const INVALID = () => new AppError(400, "INVALID_OTP", "Invalid or expired code.
 // with the same generic response every time (no account enumeration).
 export async function issueOtp({ email, purpose }) {
   const existing = await Otp.findOne({ email, purpose }).select("lastSentAt").lean();
-  if (existing && Date.now() - existing.lastSentAt.getTime() < env.OTP_RESEND_COOLDOWN_SEC * 1000) {
+  if (existing && Date.now() - existing.lastSentAt.getTime() < env.OTP_RESEND_COOLDOWN_SEC * 1000) { //lastSentAt.getTime() date into seconds 
     return { sent: false };
   }
   const code = generateOtp();
@@ -44,6 +44,7 @@ export async function verifyOtp({ email, purpose, code }) {
     await Otp.deleteOne({ _id: otp._id }); // too many wrong guesses: burn the code
     throw INVALID();
   }
+
   if (!safeEqual(counted.codeHash, hashOtp(email, purpose, code))) throw INVALID();
 
   await Otp.deleteOne({ _id: otp._id }); // single use
