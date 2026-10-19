@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import crypto, { timingSafeEqual } from "node:crypto";
 import argon2 from "argon2";
 import { env } from "../config/env.js";
 
@@ -27,7 +27,8 @@ export const hashOtp = (email, purpose, code) =>
 export function safeEqual(a, b) {
   const A = Buffer.from(a);
   const B = Buffer.from(b);
-  return A.length === B.length && crypto.timingSafeEqual(A, B); // timingSafeEqual works only buffers not the strings, if we store hashes in the buffer format then we don't need to use buffer.from()
+  return A.length === B.length && crypto.timingSafeEqual(A, B); // timingSafeEqual only accepts binary types (Buffer, TypedArray, DataView), if we store hashes in the buffer format then we don't need to use buffer.from()
+  // length check is mandatory because the timingSafeEqual() throws if length are not equal
 }
 
 // Argon2id with OWASP-recommended minimum parameters (19 MiB, 2 iterations).

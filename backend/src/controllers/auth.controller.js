@@ -64,6 +64,7 @@ export async function verifyEmail(req, res) {
   const user = await User.findOneAndUpdate(
     { email, emailVerified: false },
     { $set: { emailVerified: true }, $unset: { purgeAt: 1 } },
+    {runValidators: true},
     { new: true }
   );
   if (user) audit("email_verified", req, { userId: user._id });
@@ -86,7 +87,7 @@ async function recordFailedLogin(user) {
   const updated = await User.findByIdAndUpdate(user._id, { $inc: { failedLoginCount: 1 } }, { new: true });
   if (updated.failedLoginCount >= env.LOGIN_MAX_FAILED) {
     await User.updateOne(
-      { _id: user._id },
+      { _id: user._id }, 
       { $set: { lockUntil: new Date(Date.now() + env.LOGIN_LOCK_MIN * MINUTE), failedLoginCount: 0 } }
     );
     background(sendSecurityAlert(user.email, "Your account was temporarily locked",

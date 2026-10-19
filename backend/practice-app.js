@@ -25,8 +25,13 @@ app.get("/api/users/me", async (req, res) => {
 });
 
 
+let name= "nazim"
+console.log("the buffer", Buffer.from(name ), " its length  = ", Buffer.from(name ).length)
+console.log("the buffer ", Buffer.from("hahahahahaha" ), "its length = ", Buffer.from("hahahahahaha   " ))
+
 console.log(crypto.randomInt(0, 1_000_000).toString().padStart(6, "0"));
 console.log(crypto.createHmac("sha256", "I'm a secret, hide me").update('{name:"Nazim Ud Din", email :"nazim@gmail.com"}').digest('hex'));
+
 
 app.listen(3001, () => {
   console.log("listening on the port 3001 of local host");
