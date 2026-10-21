@@ -24,6 +24,10 @@ app.get("/api/users/me", async (req, res) => {
   }
 });
 
+app.get("/check", async (req, res)=>{
+  throw new Error("I'm an error for the cheking purpose ")
+})
+
 
 let name= "nazim"
 console.log("the buffer", Buffer.from(name ), " its length  = ", Buffer.from(name ).length)

@@ -47,3 +47,6 @@ app.use("/api/auth", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+
+
+// Because Express route handlers only catch errors that happen during the lifecycle of the HTTP request, any error thrown after the response has been sent will bubble up uncaught. In Node.js, an uncaught exception or an unhandled promise rejection will crash your entire server process unless you explicitly handle it.
