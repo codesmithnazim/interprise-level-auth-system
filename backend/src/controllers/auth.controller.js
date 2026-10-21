@@ -127,6 +127,7 @@ export async function login(req, res) {
     Session.countDocuments({ userId: user._id }),
     Session.exists({ userId: user._id, userAgent: (req.get("user-agent") || "unknown").slice(0, 300) }),
   ]);
+  
   if (total > 0 && !sameDevice) {
     background(sendSecurityAlert(user.email, "New device login",
       `A new login to your account was detected from IP ${req.ip}.`));

@@ -25,7 +25,9 @@ app.get("/api/users/me", async (req, res) => {
 });
 
 app.get("/check", async (req, res)=>{
-  throw new Error("I'm an error for the cheking purpose ")
+  console.log('the user agent = ', req.get('user-agent').slice(0, 300))
+  res.status(200).json({message : "we are doing work in the backend "})
+  // throw new Error("I'm an error for the cheking purpose ")
 })
 
 
