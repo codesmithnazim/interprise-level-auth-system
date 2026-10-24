@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import crypto, { timingSafeEqual } from "node:crypto";
 import express from "express";
 import rateLimit from "express-rate-limit";
 // import rateLimit from ""
@@ -36,8 +36,9 @@ console.log("the buffer", Buffer.from(name ), " its length  = ", Buffer.from(nam
 console.log("the buffer ", Buffer.from("hahahahahaha" ), "its length = ", Buffer.from("hahahahahaha   " ))
 
 console.log(crypto.randomInt(0, 1_000_000).toString().padStart(6, "0"));
-console.log(crypto.createHmac("sha256", "I'm a secret, hide me").update('{name:"Nazim Ud Din", email :"nazim@gmail.com"}').digest('hex'));
-
+let secret= crypto.createHmac("sha256", "I'm a secret, hide me").update('{name:"Nazim Ud Din", email :"nazim1@gmail.com"}').digest('hex')
+// console.log(); 
+console.log('Is the secrets are equal = ', timingSafeEqual(Buffer.from(secret), Buffer.from(secret)))
 
 app.listen(3001, () => {
   console.log("listening on the port 3001 of local host");

@@ -8,7 +8,7 @@ const INVALID = () => new AppError(400, "INVALID_OTP", "Invalid or expired code.
 // Creates (or replaces) the code for this email+purpose.
 // Returns { sent:false } during the resend cooldown. It does NOT throw, so callers can answer
 // with the same generic response every time (no account enumeration).
-export async function issueOtp({ email, purpose }) {
+export async function git branch issueOtp({ email, purpose }) {
   const existing = await Otp.findOne({ email, purpose }).select("lastSentAt").lean();
   if (existing && Date.now() - existing.lastSentAt.getTime() < env.OTP_RESEND_COOLDOWN_SEC * 1000) { //lastSentAt.getTime() date into seconds 
     return { sent: false };
