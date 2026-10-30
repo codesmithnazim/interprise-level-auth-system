@@ -19,9 +19,9 @@ export async function git branch issueOtp({ email, purpose }) {
     {
       $set: {
         codeHash: hashOtp(email, purpose, code),
-        attempts: 0,                       // new code => fresh attempt budget
+        attempts: 0,                       // new code => fresh attempt budget.
         lastSentAt: new Date(),
-        expiresAt: new Date(Date.now() + env.OTP_TTL_MIN * 60 * 1000),
+        expiresAt: new Date(Date.now() + env.OTP_TTL_MIN * 60 * 1000), 
       },
     },
     { upsert: true }
